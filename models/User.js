@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { vaildEmail } = require('../constants/reg-ex');
 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 const userSchema = new mongoose.Schema({
@@ -17,8 +16,7 @@ const userSchema = new mongoose.Schema({
       ref: 'Project',
       required: true
     }
-  ],
-  login_with: String
+  ]
 });
 
 module.exports = mongoose.model('User', userSchema);
