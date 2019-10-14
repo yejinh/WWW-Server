@@ -7,7 +7,7 @@ exports.authenticate = async (req, res, next) => {
     const { email, name } = req.body;
 
     if (!vaildEmail.test(email)) {
-      throw new Error('Invaild Email');
+      throw new Error('Invaild email');
     }
 
     const user = await User.findOne({ email: email });

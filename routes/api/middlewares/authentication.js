@@ -6,7 +6,7 @@ exports.ensureLoggedIn = async (req, res, next) => {
   try {
     const bearerHeader = req.headers['authorization'];
 
-    if (!bearerHeader) throw err;
+    if (!bearerHeader) throw 'Invalid token';
 
     const bearerToken = bearerHeader.split(' ')[1];
     const userData = await jwt.verify(bearerToken, process.env.SECRET_KEY);
