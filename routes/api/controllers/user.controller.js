@@ -5,11 +5,7 @@ exports.getOne = async(req, res, next) => {
     const user = await User.findOne({ email: req.params.user_email });
 
     if (!user) {
-      return res.json({
-        message: 'User Not Found',
-        access_token: token,
-        userId: userData._id
-      });
+      return res.json({ message: 'User Not Found' });
     }
 
     res.json({

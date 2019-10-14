@@ -10,19 +10,46 @@ exports.create = async (req, res, next) => {
     }).save();
 
     await Promise.all(projectMembers.map(async member => {
-      const user = await User.update(
-        {
-          _id: member._id
-        },
-        {
-          $push: { projects: project._id }
-        }
-      );
-      console.log(user);
+      try {
+        await User.update(
+          {
+            _id: member._id
+          },
+          {
+            $push: { projects: project._id }
+          }
+        );
+      } catch(err) {
+        next(new Error(err));
+      }
     }));
-
   } catch(err) {
-    console.log(err);
+    next(new Error(err));
+  }
+};
+
+exports.getProjects = async(req, res, next) => {
+  const user = await User.findOne({ email: req.params.user_email });
+  const projects = await Promise.all(user.projects.map(async project => {
+    try {
+      return await Project.findById(project._id);
+    } catch(err) {
+      next(new Error(err));
+    }
+  }));
+
+  res.send(projects);
+  console.log('projects', projects);
+}
+
+exports.update = async(req, res, next) => {
+  try {
+    console.log(req.body);
+    // const { time, domain } = req.body;
+    // const user = await User.findOne({ email: email });
+    // const project = await Project.findById(user.projects[0]);
+    // console.log(project);
+  } catch(err) {
     next(new Error(err));
   }
 };
