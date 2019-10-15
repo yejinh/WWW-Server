@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', authentication.ensureLoggedIn, projectsController.create);
-router.get('/:user_email', projectsController.getProjects);
-router.put('/', projectsController.update);
+router.get('/:user_email', authentication.ensureLoggedIn, projectsController.getProjects);
+router.put('/', authentication.ensureLoggedIn, projectsController.update);
 
 module.exports = router;

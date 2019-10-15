@@ -5,6 +5,7 @@ const { vaildEmail } = require('../../../constants/regex');
 exports.authenticate = async (req, res, next) => {
   try {
     const { email, name } = req.body;
+    const profilePhoto = req.body.photoURL;
 
     if (!vaildEmail.test(email)) {
       throw new Error('Invaild email');
@@ -13,7 +14,13 @@ exports.authenticate = async (req, res, next) => {
     const user = await User.findOne({ email: email });
 
     if (!user) {
-      const userData = await new User({ email, name, projects: [] }).save();
+      const userData = await new User({
+        email,
+        name,
+        profilePhoto,
+        projects: []
+      }).save();
+
       const { _id } = userData;
       const token = jwt.sign({ email, name, _id }, process.env.SECRET_KEY, { expiresIn: '7d' });
 
@@ -24,6 +31,7 @@ exports.authenticate = async (req, res, next) => {
     }
 
     const token = jwt.sign({ email, name, _id: user._id }, process.env.SECRET_KEY, { expiresIn: '7d' });
+
     res.json({
       message: 'logged in successfully',
       access_token: token

@@ -23,6 +23,10 @@ exports.create = async (req, res, next) => {
         next(new Error(err));
       }
     }));
+
+    res.send({
+      message: 'Create New Project successfully'
+    });
   } catch(err) {
     next(new Error(err));
   }
@@ -38,13 +42,17 @@ exports.getProjects = async(req, res, next) => {
     }
   }));
 
-  res.send(projects);
+  res.send({
+    message: 'Found Projects successfully',
+    projects
+  });
   console.log('projects', projects);
 }
 
 exports.update = async(req, res, next) => {
   try {
     console.log(req.body);
+    res.send({ result: 'ok' });
     // const { time, domain } = req.body;
     // const user = await User.findOne({ email: email });
     // const project = await Project.findById(user.projects[0]);
