@@ -32,26 +32,40 @@ exports.create = async (req, res, next) => {
   }
 };
 
-exports.getProjects = async(req, res, next) => {
-  const user = await User.findOne({ email: req.params.user_email });
-  const projects = await Promise.all(user.projects.map(async project => {
-    try {
-      return await Project.findById(project._id);
-    } catch(err) {
-      next(new Error(err));
-    }
-  }));
+exports.getOne = async(req, res, next) => {
+  try {
+    console.log('get one');
+    res.json({ result: 'ok' });
+  } catch(err) {
+    next(new Error(err));
+  }
+}
 
-  res.send({
-    message: 'Found Projects successfully',
-    projects
-  });
-  console.log('projects', projects);
+exports.getProjects = async(req, res, next) => {
+  try {
+    const user = await User.findById(req.params.user_id);
+    const projects = await Promise.all(user.projects.map(async project => {
+      try {
+        return await Project.findById(project._id);
+      } catch(err) {
+        next(new Error(err));
+      }
+    }));
+
+
+    res.send({
+      message: 'Found Projects successfully',
+      projects
+    });
+
+  } catch(err) {
+    next(new Error(err));
+  }
 }
 
 exports.update = async(req, res, next) => {
   try {
-    console.log(req.body);
+    console.log(req.params.project_id);
     res.send({ result: 'ok' });
     // const { time, domain } = req.body;
     // const user = await User.findOne({ email: email });

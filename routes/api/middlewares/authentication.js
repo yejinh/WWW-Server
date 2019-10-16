@@ -10,7 +10,7 @@ exports.ensureLoggedIn = async (req, res, next) => {
 
     const bearerToken = bearerHeader.split(' ')[1];
     const userData = await jwt.verify(bearerToken, process.env.SECRET_KEY);
-    const user = await User.findOne({ email: userData.email });
+    const user = await User.findById(userData._id);
 
     res.locals.userData = user;
     next();

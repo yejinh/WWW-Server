@@ -1,7 +1,6 @@
 const User = require('../../../models/User');
 
 exports.getLoggedinUser = (req, res, next) => {
-  console.log(111);
   res.json({
     message: 'User Found successfully',
     userData: res.locals.userData
