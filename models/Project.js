@@ -15,8 +15,8 @@ const ProjectSchema = new mongoose.Schema({
       time_tracking: [
         {
           domain: {
-          type: String,
-          required: true
+            type: String,
+            required: true
           },
           time: {
             type: Number,
