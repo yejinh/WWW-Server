@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
 const User = require('../../../models/User');
 const Project = require('../../../models/Project');
 
 exports.create = async (req, res, next) => {
   try {
-    const { title, addedMembers } = req.body;
+    const { title, endDate, addedMembers } = req.body;
     const project = await new Project({
       title,
+      end_date: endDate,
       members: addedMembers.map(member => ({ member: member._id, time_tracking: [] }))
     }).save();
 
@@ -29,22 +29,9 @@ exports.create = async (req, res, next) => {
       message: 'Create New Project successfully'
     });
   } catch(err) {
-    console.log(err);
     next(new Error(err));
   }
 };
-
-exports.getOne = async(req, res, next) => {
-  try {
-    console.log(req.params.project_id);
-    const project = await Project.findById(req.params.project_id);
-    console.log(project);
-
-    res.json({ result: 'ok' });
-  } catch(err) {
-    next(new Error(err));
-  }
-}
 
 exports.getProjects = async(req, res, next) => {
   try {
@@ -96,21 +83,12 @@ exports.update = async(req, res, next) => {
 
       const hasBeen = timeTracking.map(tracked => {
         if (tracked.domain === domain) {
-          if (tracked.time > 0) {
-            console.log(tracked.time);
-            tracked.time += (time - tracked.time);
-            return true;
-          }
-
           tracked.time += time;
           return true;
         }
 
         return false;
       });
-
-      console.log(hasBeen);
-      console.log(timeTracking, 'check');
 
       if (hasBeen.every(been => been === false)) {
         timeTracking.push({
@@ -123,10 +101,6 @@ exports.update = async(req, res, next) => {
     project.save();
     res.send({ result: timeTracking });
   } catch(err) {
-    console.log(err);
     next(new Error(err));
   }
 };
-
-// console.log(project.members, 'members?');
-// console.log(userId);

@@ -4,8 +4,7 @@ const { vaildEmail } = require('../../../constants/regex');
 
 exports.authenticate = async (req, res, next) => {
   try {
-    const { email, name } = req.body;
-    const profilePhoto = req.body.photoURL;
+    const { email, name, profilePhoto } = req.body;
 
     if (!vaildEmail.test(email)) {
       throw new Error('Invaild email');
