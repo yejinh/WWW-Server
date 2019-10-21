@@ -1,5 +1,6 @@
 const User = require('../../../models/User');
 const Project = require('../../../models/Project');
+const sendMessage = require('../../../constants/sendMessage');
 
 exports.create = async (req, res, next) => {
   try {
@@ -25,8 +26,19 @@ exports.create = async (req, res, next) => {
       }
     }));
 
+    res.send({ message: sendMessage.NEW_PROJECT_CREATED });
+  } catch(err) {
+    next(new Error(err));
+  }
+};
+
+exports.getOne = async(req, res, next) => {
+  try {
+    const project = await Project.findById(req.params.project_id);
+
     res.send({
-      message: 'Create New Project successfully'
+      message: sendMessage.PROJECT_FOUND,
+      project
     });
   } catch(err) {
     next(new Error(err));
@@ -38,11 +50,7 @@ exports.getProjects = async(req, res, next) => {
     // populate로 바꿀 수 있을 거 같음..
     const user = await User.findById(req.params.user_id);
     const projects = await Promise.all(user.projects.map(async project => {
-      try {
-        return await Project.findById(project._id);
-      } catch(err) {
-        next(new Error(err));
-      }
+      return await Project.findById(project._id);
     }));
 
     const members = await Promise.all(projects.map(async project => {
@@ -52,7 +60,7 @@ exports.getProjects = async(req, res, next) => {
     }));
 
     res.send({
-      message: 'Found Projects successfully',
+      message: sendMessage.PROJECTS_FOUND,
       projects,
       members
     });
@@ -67,15 +75,13 @@ exports.update = async(req, res, next) => {
     const project = await Project.findById(req.params.project_id);
     const userId = res.locals.userData._id;
     const extensionData = req.body;
-
     const member = project.members.find(check => {
-      return toString(check.member) === toString(userId);
+      return check.member.toString() === userId.toString();
     });
 
     // const project = await Project.findById(req.params.project_id).populate('members');
 
-    // console.log(project, 'test');
-    let timeTracking = member.time_tracking;
+    const timeTracking = member.time_tracking;
 
     extensionData.map(data => {
       const domain = Object.keys(data)[0];
@@ -99,7 +105,10 @@ exports.update = async(req, res, next) => {
     });
 
     project.save();
-    res.send({ result: timeTracking });
+    res.send({
+      message: sendMessage.PROJECTS_UPDATED,
+      timeTracking
+    });
   } catch(err) {
     next(new Error(err));
   }

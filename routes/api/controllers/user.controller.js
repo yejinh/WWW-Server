@@ -1,4 +1,5 @@
 const User = require('../../../models/User');
+const sendMessage = require('../../../constants/sendMessage');
 
 exports.getLoggedinUser = (req, res, next) => {
   res.json({
@@ -12,11 +13,11 @@ exports.getOne = async(req, res, next) => {
     const user = await User.findOne({ email: req.params.user_email });
 
     if (!user) {
-      return res.json({ message: 'User Not Found' });
+      return res.json({ message: sendMessage.USER_NOT_FOUND });
     }
 
     res.json({
-      message: 'User Found successfully',
+      message: sendMessage.USER_FOUND,
       userData: user
     });
   } catch(err) {
