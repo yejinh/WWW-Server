@@ -1,12 +1,12 @@
 branch-defaults:
-  master:
-    environment: www-server-dev
+  yejinh:
+    environment: www-server-development
 environment-defaults:
-  sample:
+  www-server-development:
     branch: null
     repository: null
 global:
-  application_name: www-server-dev
+  application_name: www-server
   default_ec2_keyname: null
   default_platform: arn:aws:elasticbeanstalk:ap-northeast-2::platform/Node.js running
     on 64bit Amazon Linux/4.11.0
