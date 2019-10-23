@@ -18,13 +18,6 @@ db.once('open', console.log.bind(console, 'connected'));
 db.on('error', console.error.bind(console, 'connection error'));
 
 const app = express();
-
-// const corsOptions = {
-//   origin: 'http://localhost:3000',
-//   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-//   credentials: true,
-// };
-// app.use(cors(corsOptions));
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
