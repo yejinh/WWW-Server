@@ -68,6 +68,26 @@ exports.getProjects = async(req, res, next) => {
   } catch(err) {
     next(new Error(err));
   }
+};
+
+exports.delete = async(req, res, next) => {
+  try {
+    const { project_id: projectId } = req.params;
+    await Project.findByIdAndDelete(projectId);
+    await User.updateMany({}, {
+      $pull: {
+        projects: {
+          $in: projectId
+        }
+      }
+    });
+    console.log(111);
+    res.json({
+      message: 'working'
+    });
+  } catch(err) {
+    next(new Error(err));
+  }
 }
 
 exports.update = async(req, res, next) => {
