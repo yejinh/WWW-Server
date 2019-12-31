@@ -17,7 +17,7 @@ WWW은 개인 혹은 협업 프로젝트시 웹 사용 내역을 도메인과 �
    ![3](https://yejinh-gifs.s3.ap-northeast-2.amazonaws.com/www3.gif)
 
 
-
+&nbsp;
 ## Contents
 
 [Requirements](https://github.com/yejinh/WWW-extension/tree/yejinh#requirements)
@@ -36,6 +36,7 @@ WWW은 개인 혹은 협업 프로젝트시 웹 사용 내역을 도메인과 �
 
 
 
+&nbsp;
 ## Requirements
 
 - chrome web browser에서 사용 가능합니다.
@@ -46,11 +47,12 @@ WWW은 개인 혹은 협업 프로젝트시 웹 사용 내역을 도메인과 �
 
   
 
+&nbsp;
 ## Installation
 
 ### Client
 
-[WWW client](https://www.wewillwork.in/) 배포버전 불안정 추후 수정 예정
+[WWW client](https://www.wewillwork.in/)
 
 ```
 git clone https://github.com/yejinh/WWW-client.git
@@ -61,7 +63,7 @@ npm start
 
 ### Server
 
-[WWW server](http://api.wewillwork.in/) 배포버전 불안정 추후 수정 예정
+[WWW server]
 
 ```
 git clone https://github.com/yejinh/WWW-server.git
@@ -70,12 +72,13 @@ npm install
 npm start
 ```
 
-### Extension
+### Extension 배포버전 불안정 추후 수정 예정
 
 [WWW chrome extension](https://chrome.google.com/webstore/detail/dfpkfpanbiknimieidehmiaghgagldho)
 
 
 
+&nbsp;
 ## Setting
 
 ### Environment Variable - Client
@@ -109,7 +112,7 @@ SECRET_KEY=www
 - SECRET_KEY:  위의 시크릿 키 혹은 임의로 설정 가능
 
   
-
+&nbsp;
 ## Features
 
 - Firebase Authentication/ Facebook 을 이용한 로그인 기능
@@ -120,7 +123,7 @@ SECRET_KEY=www
 - 웹에서 트레킹된 데이터 차트화하여 프로젝트 기여 퍼센트를 차트로 확인 기능
 
 
-
+&nbsp;
 ## Skills
 
 ### Client
@@ -146,7 +149,7 @@ SECRET_KEY=www
 - JQuery
 
 
-
+&nbsp;
 ## Deployment
 
 ### Client
@@ -164,7 +167,7 @@ SECRET_KEY=www
 - Developer Extension 
 
 
-
+&nbsp;
 ## Project Control
 
 - Git 기반 진행
@@ -172,13 +175,13 @@ SECRET_KEY=www
 - Notion Todo를 이용한 Task Management
 
   
-
+&nbsp;
 ## Version Control
 
 Client, Server, Extension을 독립적으로 구분하여 Git repository 관리
 
 
-
+&nbsp;
 ## Challenges
 
 - 웹이나 앱과는 다르게 구동되는 크롬 확장 프로그램을 초기에 파악하는 것이 쉽지 않았습니다.
@@ -194,7 +197,7 @@ Client, Server, Extension을 독립적으로 구분하여 Git repository 관리
   크롬 확장 프로그램의 경우 배포 전 후의 이슈에 차이가 가장 크고 예기치 못한 문제들이 가장 많이 발생하였습니다. 개발 환경에서는 문제 되지 않았던 로그인시 화면 전환 불가, 트래킹 데이터가 원활하게 쌓이지 않는 문제점 등을 
 
 
-
+&nbsp;
 ## Things to Do
 
 1. End to End(E2E) 테스트
