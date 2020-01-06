@@ -13,6 +13,10 @@ mongoose.connect(process.env.DATABASE_URL, {
   useUnifiedTopology: true
 });
 
+const redis = require('redis');
+const client = redis.createClient();
+console.log(client);
+
 const db = mongoose.connection;
 db.once('open', console.log.bind(console, 'connected'));
 db.on('error', console.error.bind(console, 'connection error'));
