@@ -18,7 +18,11 @@ db.once('open', console.log.bind(console, 'connected'));
 db.on('error', console.error.bind(console, 'connection error'));
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+  origin: 'https://www.wewillwork.in',
+  credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
